@@ -1,0 +1,19 @@
+{
+  "name": "e911-scrape",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.9.9",
+    "pg": "^4.2.0",
+    "pg-hstore": "^2.3.1",
+    "sequelize": "^2.0.2",
+    "spooky": "^0.2.5",
+    "winston": "^0.9.0"
+  }
+}

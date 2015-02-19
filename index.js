@@ -42,16 +42,16 @@ var spooky = new Spooky({
 });
 
 spooky.on('error', function (e, stack) {
-  console.error(e);
+  logger.error(e, {source: "spookyjs"});
 
   if (stack) {
-    console.log(stack);
+    logger.error(stack, {source: "spookyjs"});
   }
 });
 
 spooky.on('processed-data', function(dta) {
   db.persist(dta).then(function(f){
-    logger.info("Done.");
+    logger.info("Done.", {source: "spookyjs"});
     spooky.destroy();
   });
 });

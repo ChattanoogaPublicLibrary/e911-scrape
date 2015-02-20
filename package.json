@@ -10,6 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "^2.9.9",
+    "event-stream": "^3.2.2",
+    "fast-csv": "^0.5.5",
+    "lodash": "^3.3.0",
     "moment-timezone": "^0.3.0",
     "pg": "^4.2.0",
     "pg-hstore": "^2.3.1",

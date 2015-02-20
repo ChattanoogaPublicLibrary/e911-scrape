@@ -1,29 +1,14 @@
 var env = process.env.NODE_ENV || "development"
-  , logger = require('winston')
   , config = require(__dirname + '/config/config.json')[env];
 
-var configuration = config; 
+require('rconsole');
 
-configuration.logging = function(msg){ return logger.info(msg, {source: 'sequelize'});}; 
+console.set({ facility: 'local0', title: 'e911-scrape' });
 
-logger.setLevels({
-    debug: 0,
-    info: 1,
-    silly: 2,
-    warn: 3,
-    error: 4,
-});
-logger.addColors({
-    debug: 'green',
-    info:  'cyan',
-    silly: 'magenta',
-    warn:  'yellow',
-    error: 'red'
-});
+var configuration = config;
 
-logger.remove(logger.transports.Console);
-logger.add(logger.transports.Console, { level: 'debug', colorize: true });
-logger.add(logger.transports.File, { filename: configuration.logLocation });
+configuration.logging = function(msg){ return console.info(msg + ": %j", {source: 'sequelize'});};
+
 
 exports.conf = configuration;
-exports.logger = logger;
+exports.logger = console;

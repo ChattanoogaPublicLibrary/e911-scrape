@@ -21,7 +21,7 @@ var spooky = new Spooky({
     if (err) {
       e = new Error('Failed to initialize SpookyJS');
       e.details = err;
-      env.logger.error(e.details, {source: "spookyjs"})
+      env.logger.error(e.details);
       throw e;
     }
 
@@ -41,16 +41,16 @@ var spooky = new Spooky({
 });
 
 spooky.on('error', function (e, stack) {
-  env.logger.error(e, {source: "spookyjs"});
+  env.logger.error(e);
 
   if (stack) {
-    env.logger.error(stack, {source: "spookyjs"});
+    env.logger.error(stack);
   }
 });
 
 spooky.on('processed-data', function(dta) {
   db.persist(dta).then(function(f){
-    env.logger.info("Done.", {source: "spookyjs"});
+    env.logger.info("Done.");
     spooky.destroy();
   });
 });

@@ -7,7 +7,7 @@ var configuration = config;
 
 console.set({ facility: config.logFacility, title: 'e911-scrape' });
 
-configuration.logging = function(msg){ return console.info(msg + ": %j", {source: 'sequelize'});};
+configuration.logging = function(msg){ return console.info(msg);};
 
 
 exports.conf = configuration;

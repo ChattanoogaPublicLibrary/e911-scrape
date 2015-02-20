@@ -3,9 +3,9 @@ var env = process.env.NODE_ENV || "development"
 
 require('rconsole');
 
-console.set({ facility: 'local0', title: 'e911-scrape' });
-
 var configuration = config;
+
+console.set({ facility: config.logFacility, title: 'e911-scrape' });
 
 configuration.logging = function(msg){ return console.info(msg + ": %j", {source: 'sequelize'});};
 

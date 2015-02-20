@@ -1,12 +1,17 @@
 var env = require('./environment')
   , Promise = require('bluebird')
+  , moment = require('moment-timezone')
   , models = require("./models");
+
+function processCreatedTime(t) {
+  return moment.tz(t, 'MM/DD/YYYY h:mma', env.conf.dataTimezone).toDate();
+}
 
 function persist(rows) {
 
   return Promise.each(rows, function(f) {
     var entry = {
-      created: f.created,
+      created: processCreatedTime(f.created),
       agency: f.agency,
       type: f.type,
       location: f.location,

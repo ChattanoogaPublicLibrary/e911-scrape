@@ -1,30 +1,30 @@
 module.exports = function(sequelize, DataTypes) {
   var Entry = sequelize.define("Entry", {
-    id: { 
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    entry_id: { 
+    entry_id: {
       type: DataTypes.STRING(200),
       allowNull: false,
       unique: true
     },
-    created: { 
+    created: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    agency: {
       type: DataTypes.STRING(200),
       allowNull: false
     },
-    agency: { 
-      type: DataTypes.STRING(200),
-      allowNull: false
-    },
-    location: { 
+    location: {
       type: DataTypes.STRING(200),
       allowNull: false
     },
     latitude: DataTypes.STRING(200),
     longitude: DataTypes.STRING(200)
-    }, 
+    },
     {
       tableName: 'entries',
       createdAt: 'created_at',

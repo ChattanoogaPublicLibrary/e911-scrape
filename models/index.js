@@ -1,13 +1,12 @@
 var fs = require("fs")
-  , _ = require("lodash")
   , path  = require("path")
   , Sequelize = require("sequelize")
   , basename = path.basename(module.filename)
   , env = require('../environment')
   , sequelize = new Sequelize(
-      env.conf.database, 
-      env.conf.username, 
-      env.conf.password, 
+      env.conf.database,
+      env.conf.username,
+      env.conf.password,
       env.conf)
   , db = {};
 

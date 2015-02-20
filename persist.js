@@ -1,33 +1,6 @@
-var logger = require('./logger')
-  , config = require('./config.json')
-  , Sequelize = require('sequelize')
+var env = require('./environment')
   , Promise = require('bluebird')
-  , sequelize = new Sequelize(config.postgresURI, {
-      dialect: "postgres",
-      logging: function(msg){ return logger.info(msg, {source: 'sequelize'})}
-    });
-
-var Entry = sequelize.define("Entry", {
-  id: { type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  entry_id: { type: Sequelize.STRING(200),
-    allowNull: false,
-    unique: true},
-  created: { type: Sequelize.STRING(200),
-    allowNull: false},
-  agency: { type: Sequelize.STRING(200),
-    allowNull: false},
-  location: { type: Sequelize.STRING(200),
-    allowNull: false},
-  latitude: Sequelize.STRING(200),
-  longitude: Sequelize.STRING(200)
-}, {tableName: 'entries',
-  createdAt: 'created_at',
-  updatedAt: 'updated_at',
-  deletedAt: 'deleted_at',
-  });
+  , models = require("./models");
 
 function persist(rows) {
 
@@ -41,18 +14,18 @@ function persist(rows) {
       longitude: f.longitude,
     };
 
-    return Entry
+    return models.Entry
       .findOrCreate({where: {entry_id: f._id}, defaults: entry})
       .spread(function(ent, created){
         if (created) {
-          logger.info('Success');
+          env.logger.info('Success');
         } else {
-          logger.warn('Instance exists.');
+          env.logger.warn('Instance exists.');
         }
 
       })
       .catch(function(e) {
-        logger.error(e);
+        env.logger.error(e);
       });
 
   });

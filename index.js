@@ -5,8 +5,7 @@ try {
 }
 
 
-var logger = require('./logger')
-  , config = require('./config.json')
+var env = require('./environment')
   , db = require('./persist');
 
 var spooky = new Spooky({
@@ -22,11 +21,11 @@ var spooky = new Spooky({
     if (err) {
       e = new Error('Failed to initialize SpookyJS');
       e.details = err;
-      logger.error(e.details, {source: "spookyjs"})
+      env.logger.error(e.details, {source: "spookyjs"})
       throw e;
     }
 
-    spooky.start(config.sourceURL);
+    spooky.start(env.conf.sourceURL);
     spooky.then(function() {
       this.emit('processed-data', this.evaluate(function() {
         return getAllRecords();
@@ -42,16 +41,16 @@ var spooky = new Spooky({
 });
 
 spooky.on('error', function (e, stack) {
-  logger.error(e, {source: "spookyjs"});
+  env.logger.error(e, {source: "spookyjs"});
 
   if (stack) {
-    logger.error(stack, {source: "spookyjs"});
+    env.logger.error(stack, {source: "spookyjs"});
   }
 });
 
 spooky.on('processed-data', function(dta) {
   db.persist(dta).then(function(f){
-    logger.info("Done.", {source: "spookyjs"});
+    env.logger.info("Done.", {source: "spookyjs"});
     spooky.destroy();
   });
 });

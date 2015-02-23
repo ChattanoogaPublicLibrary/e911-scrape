@@ -13,7 +13,7 @@ function persist(rows) {
     var entry = {
       created: processCreatedTime(f.created),
       agency: f.agency,
-      type: f.type,
+      incident_type: f.type,
       location: f.location,
       latitude: f.latitude,
       longitude: f.longitude,
